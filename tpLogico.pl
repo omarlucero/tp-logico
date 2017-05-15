@@ -27,6 +27,30 @@ igualCantidadDeAmbientes(Propiedad1, Propiedad2) :-
   ambientes(Propiedad2, Cantidad2),
   Cantidad1 = Cantidad2.
 
+loQueQuiere(carlos, Propiedad):-
+  ambientes(Propiedad, Cantidad),
+    Cantidad >=3,
+    tieneJardin(Propiedad).
+
+loQueQuiere(ana, Propiedad):-
+  tienePiscina(Propiedad, Cantidad),
+  Cantidad >= 100.
+
+loQueQuiere(maria, Propiedad):-
+  ambientes(Propiedad, CantidadDeAmbientes),
+  CantidadDeAmbientes >= 2,
+  tienePiscina(Propiedad, CantidadDeMentros),
+  CantidadDeMentros >= 15.
+
+loQueQuiere(pedro, Propiedad):-
+  loQueQuiere(maria, Propiedad).
+
+loQueQuiere(chameleon, Propiedad):-
+  loQueQuiere(Usuario, Propiedad),
+  Usuario \= chameleon.
+
+
+
 
 
 
