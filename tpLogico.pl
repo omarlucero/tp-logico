@@ -23,9 +23,9 @@ igualCantidadDeAmbientes(Propiedad1, Propiedad2) :-
   esPropiedad(Propiedad1),
   esPropiedad(Propiedad2),
   Propiedad1 \= Propiedad2,
-  ambientes(Propiedad1, Cantidad1),
-  ambientes(Propiedad2, Cantidad2),
-  Cantidad1 = Cantidad2.
+  ambientes(Propiedad1, Cantidad),
+  ambientes(Propiedad2, Cantidad),
+
 
 loQueQuiere(carlos, Propiedad):-
   ambientes(Propiedad, Cantidad),
@@ -68,4 +68,7 @@ Propiedad1 = tinsmithCircle1774,
 Propiedad2 = calleFalsa123 ;
 Propiedad1 = calleFalsa123,
 Propiedad2 = tinsmithCircle1774 ;
+
+?- loQueQuiere(pedro, Propiedad).
+Propiedad = avMoreno708 ;
 */
