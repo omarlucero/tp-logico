@@ -18,3 +18,30 @@ tieneJardin(avMoreno708).
 tieneJardin(avSiempreViva742).
 
 tienePiscina(avMoreno708, 30).
+
+igualCantidadDeAmbientes(Propiedad1, Propiedad2) :-
+  esPropiedad(Propiedad1),
+  esPropiedad(Propiedad2),
+  Propiedad1 \= Propiedad2,
+  ambientes(Propiedad1, Cantidad1),
+  ambientes(Propiedad2, Cantidad2),
+  Cantidad1 = Cantidad2.
+
+
+
+
+
+
+
+
+
+/*consultas:
+?- tienePiscina(Propiedad, 30).
+Propiedad = avMoreno708
+
+?- igualCantidadDeAmbientes(Propiedad1, Propiedad2).
+Propiedad1 = tinsmithCircle1774,
+Propiedad2 = calleFalsa123 ;
+Propiedad1 = calleFalsa123,
+Propiedad2 = tinsmithCircle1774 ;
+*/
