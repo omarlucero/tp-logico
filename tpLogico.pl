@@ -1,74 +1,83 @@
-esPropiedad(tinsmithCircle1774).
-esPropiedad(avMoreno708).
-esPropiedad(avSiempreViva742).
-esPropiedad(calleFalsa123).
-
-ambientes(tinsmithCircle1774, 3).
-ambientes(avMoreno708, 7).
-ambientes(avSiempreViva742, 4).
-ambientes(calleFalsa123, 3).
-
 cuesta(tinsmithCircle1774, 700).
 cuesta(avMoreno708, 2000).
 cuesta(avSiempreViva742, 1000).
 cuesta(calleFalsa123, 200).
 
-tieneJardin(tinsmithCircle1774).
-tieneJardin(avMoreno708).
-tieneJardin(avSiempreViva742).
+esPropiedad(UnaPropiedad):- cuesta(UnaPropiedad, _).
 
-tienePiscina(avMoreno708, 30).
+tiene(tinsmithCircle1774, ambientes(3)).
+tiene(tinsmithCircle1774, jardin).
 
-igualCantidadDeAmbientes(Propiedad1, Propiedad2) :-
-  esPropiedad(Propiedad1),
-  esPropiedad(Propiedad2),
-  Propiedad1 \= Propiedad2,
-  ambientes(Propiedad1, Cantidad),
-  ambientes(Propiedad2, Cantidad),
+tiene(avMoreno708, ambientes(7)).
+tiene(avMoreno708, piscina(30)).
+tiene(avMoreno708, jardin).
 
+tiene(avSiempreViva742, ambientes(4)).
+tiene(avSiempreViva742, jardin).
 
-loQueQuiere(carlos, Propiedad):-
-  ambientes(Propiedad, Cantidad),
-    Cantidad >=3,
-    tieneJardin(Propiedad).
+tiene(calleFalsa123, ambientes(3)).
 
-loQueQuiere(ana, Propiedad):-
-  tienePiscina(Propiedad, Cantidad),
-  Cantidad >= 100.
+persona(carlos).
+persona(ana).
+persona(maria).
+persona(pedro).
+persona(chameleon).
 
-loQueQuiere(maria, Propiedad):-
-  ambientes(Propiedad, CantidadDeAmbientes),
-  CantidadDeAmbientes >= 2,
-  tienePiscina(Propiedad, CantidadDeMentros),
-  CantidadDeMentros >= 15.
+loQueQuiere(carlos, jardin).
+loQueQuiere(carlos, ambientes(3)).
 
-loQueQuiere(pedro, Propiedad):-
-  loQueQuiere(maria, Propiedad).
+loQueQuiere(ana, piscina(100)).
 
-loQueQuiere(chameleon, Propiedad):-
-  loQueQuiere(Usuario, Propiedad),
-  Usuario \= chameleon.
+loQueQuiere(maria, ambientes(2)).
+loQueQuiere(maria, piscina(15)).
 
+loQueQuiere(pedro, Comodidad):- loQueQuiere(maria, Comodidad).
 
+loQueQuiere(chameleon, Comodidad):- persona(Cliente), Cliente \= chameleon, loQueQuiere(Cliente, Comodidad).
 
+cumpleCondicion(Propiedad, Comodidad):-
+  esPropiedad(Propiedad),
+  loQueQuiere(_, Comodidad),
+  tiene(Propiedad, Comodidad).
 
+cumpleCondicion(Propiedad, ambientes(AmbientesDeseados)):-
+  esPropiedad(Propiedad),
+  loQueQuiere(_, ambientes(AmbientesDeseados)),
+  tiene(Propiedad, ambientes(AmbientesDePropiedad)),
+  AmbientesDePropiedad >= AmbientesDeseados.
 
-
-
-
-
+cumpleCondicion(Propiedad, piscina(MetrosDeseados)):-
+ esPropiedad(Propiedad),
+ loQueQuiere(_, piscina(MetrosDeseados)),
+ tiene(Propiedad, piscina(MetrosDePiscinaReales)),
+ MetrosDePiscinaReales >= MetrosDeseados.
 
 
 /*consultas:
-?- tienePiscina(Propiedad, 30).
-Propiedad = avMoreno708
+?- tiene(Propiedad, piscina(30)).
+Propiedad = avMoreno708.
 
-?- igualCantidadDeAmbientes(Propiedad1, Propiedad2).
+?- tiene(Propiedad1, ambientes(Cantidad)), tiene(Propiedad2, ambientes(Cantidad)), Propiedad1 \= Propiedad2.
 Propiedad1 = tinsmithCircle1774,
+Cantidad = 3,
 Propiedad2 = calleFalsa123 ;
-Propiedad1 = calleFalsa123,
-Propiedad2 = tinsmithCircle1774 ;
 
-?- loQueQuiere(pedro, Propiedad).
+?- loQueQuiere(pedro, Comodidad).
+Comodidad = ambientes(2) ;
+Comodidad = piscina(15).
+
+?- cumpleCodicion(Propiedad, ambientes(2)).
+Propiedad = tinsmithCircle1774 ;
 Propiedad = avMoreno708 ;
+Propiedad = avSiempreViva742 ;
+Propiedad = calleFalsa123
+
+?- tiene(Propiedad, Comodidad), loQueQuiere(pedro, Comodidad).
+false.
+
+?- tiene(avMoreno708, Comodidad), loQueQuiere(_, Comodidad).
+Comodidad = jardin ;
+
+?-  loQueQuiere(_, Comodidad), not(cumpleCondicion(_, Comodidad)).
+Comodidad = piscina(100)
 */
