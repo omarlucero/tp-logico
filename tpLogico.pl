@@ -52,6 +52,14 @@ cumpleCondicion(Propiedad, piscina(MetrosDeseados)):-
  tiene(Propiedad, piscina(MetrosDePiscinaReales)),
  MetrosDePiscinaReales >= MetrosDeseados.
 
+/*parte 2 */
+
+cumpleTodo(Propiedad, Persona):-
+  persona(Persona),
+  esPropiedad(Propiedad),
+  forall(loQueQuiere(Persona, Comodidad), cumpleCondicion(Propiedad, Comodidad)).
+
+
 
 /*consultas:
 ?- tiene(Propiedad, piscina(30)).
@@ -80,4 +88,20 @@ Comodidad = jardin ;
 
 ?-  loQueQuiere(_, Comodidad), not(cumpleCondicion(_, Comodidad)).
 Comodidad = piscina(100)
+
+consultas de la parte 2
+
+?- cumpleTodo(Propiedad, Persona).
+Propiedad = tinsmithCircle1774,
+Persona = carlos ;
+Propiedad = avMoreno708,
+Persona = carlos ;
+Propiedad = avSiempreViva742,
+Persona = carlos ;
+Propiedad = avMoreno708,
+Persona = maria ;
+Propiedad = avMoreno708,
+Persona = pedro ;
+
+
 */
